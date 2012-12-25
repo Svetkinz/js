@@ -1,4 +1,4 @@
-﻿<!doctype html>
+<!doctype html>
 <html>
     <head>
         <meta charset="utf-8"/>
@@ -96,45 +96,49 @@
             function add_person() {
                 var table = document.getElementById("persons");
                 
-                var lastname = document.getElementById("lastname").value;
-                var firstname = document.getElementById("firstname").value;
-                var patronymic = document.getElementById("patronymic").value;
+                var lastnameEl = document.getElementById("lastname");
+                var firstnameEl = document.getElementById("firstname");
+                var patronymicEl = document.getElementById("patronymic");
+                
+                var lastname = lastnameEl.value;
+                var firstname = firstnameEl.value;
+                var patronymic = patronymicEl.value;
 
-                var flag = false;
+                var error_occured = false;
 
-                var error = document.getElementById("error");
+                var errorEl = document.getElementById("error");
                 var errorText;
                 
                 if (lastname == '') {
                     errorText = 'Не заполнили фамилию <br />';
-                    flag = true;
+                    error_occured = true;
                 }
 
                 if (firstname == '') {
                     errorText += 'Не заполнили имя <br />';                
-                    flag = true;
+                    error_occured = true;
                 }
 
                 if (patronymic == '') {
                     errorText += 'Не заполнили отчество <br />';
-                    flag = true;
+                    error_occured = true;
                 }               
 
-                if (!flag) {
-                    newrow= table.insertRow(0);
-                    newcell=newrow.insertCell(0); 
+                if (!error_occured) {
+                    var newrow= table.insertRow(0);
+                    var newcell=newrow.insertCell(0); 
                     newcell.innerHTML=lastname+' '+firstname+' '+patronymic; 
-                    document.getElementById("lastname").value = '';
-                    document.getElementById("firstname").value = '';
-                    document.getElementById("patronymic").value = ''; 
-                    error.innerHTML = '';                    
-                    error.style.display = 'none';
+                    lastnameEl.value = '';
+                    firstnameEl.value = '';
+                    patronymicEl.value = ''; 
+                    errorEl.innerHTML = '';                    
+                    errorEl.style.display = 'none';
                     document.getElementById("add_item").style.display = 'inline-block';
                     document.getElementById("newPerson").style.display = 'none';                
                     
                 } else {
-                    error.style.display = 'block';
-                    error.innerHTML = errorText;
+                    errorEl.style.display = 'block';
+                    errorEl.innerHTML = errorText;                    
                 }
             }
             
