@@ -1,0 +1,145 @@
+﻿<!doctype html>
+<html>
+    <head>
+        <meta charset="utf-8"/>
+        <title>JS</title>    
+        <link href="style.css" type="text/css" rel="stylesheet" />
+    </head>
+    <body id="body">    
+        <div class="b-wrapper">
+            <ul>
+                <li>
+                    Сделай синтаксис возможным (1).plus(2).multiply(3); 
+                    <a href="javascript:void(0)" onclick=(alert((1).plus(2).multiply(3)))>Выполнить</a>
+                </li>
+                <li>
+                    Напиши функцию add, такую что: add(2)(4). 
+                    <a href="javascript:void(0)" onclick=(alert(add(2)(4)))>Выполнить</a>
+                </li>
+                <li>
+                    Есть массив из нескольких элементов (например [1, 3, 5, 2, 8]). Нужно "обернуть" каждый элемент в функцию, которая выводит алерт со значением элемента.
+                    <a href="javascript:void(0)" onclick=(a[2]())>Выполнить</a></li>
+                <li>
+                    <p>Напиши упрощенный вариант "адресной книги". То есть таблица с контактами (строка — фамилия, имя, отчество). И форма с возможностью добавить контакт в эту таблицу (3 инпута и кнопка). По клику на кнопку контакт должен добавляться в таблицу.</p>
+                    <p>По клику на любой из строчек должен показываться алерт с фамилией именем и отчеством кликнутого контакта. Написать нужно без использования дополнительных библиотек.</p>
+                </li>
+            </ul>   
+            <hr />
+            <div id="task4">
+                <table id="persons">
+                    <tr>
+                        <td>Мерзликина Мария Андреевна</td>
+                    </tr>
+                    <tr>
+                        <td>Никишин Кирилл Николаевич</td>
+                    </tr>
+                    <tr>
+                        <td>Подвойская Наталья Григорьевна</td>
+                    </tr>
+                    <tr>
+                        <td>Алиев Захар Михайлович</td>
+                    </tr>
+                </table>
+                <div id="newPerson">
+                    <input type="text" id="lastname" placeholder="Фамилия" />
+                    <input type="text" id="firstname" placeholder="Имя" />
+                    <input type="text" id="patronymic" placeholder="Отчество" />
+                    <a href="#" onclick="add_person()">Добавить</a>
+                </div>
+                <a href="#" id="add_item" onclick="show_newPerson()">Добавить запись</a>
+                <div id="error"></div>
+            </div>
+        
+        </div>
+        
+        
+        
+        <script>            
+            function add (a) {
+                return function (b) {
+                    return a+b;
+                }
+            }
+           
+            function plus(a) {
+                return this+a;
+            }
+            
+            function multiply(a) {
+                return this*a;
+            }
+            
+            Object.prototype.plus = plus;
+            Object.prototype.multiply = multiply;
+            
+            var a = [1, 3, 5, 2, 8];
+            
+            for (var i = 0; i < a.length; ++i) {
+              a[i] = (function (x) {
+                return function() {alert(x)}
+              })(a[i]); 
+            }
+                        
+        
+            document.getElementById("persons").onclick = function(event) {
+                event = event || window.event;
+                var element = event.target || event.srcElement;
+                alert(element.innerHTML);
+            };
+            
+            function show_newPerson () {
+                var el = document.getElementById("newPerson");
+                el.style.display = 'block';
+                document.getElementById("add_item").style.display = 'none';                
+            }
+            
+            function add_person() {
+                var table = document.getElementById("persons");
+                
+                var lastname = document.getElementById("lastname").value;
+                var firstname = document.getElementById("firstname").value;
+                var patronymic = document.getElementById("patronymic").value;
+
+                var flag = false;
+
+                var error = document.getElementById("error");
+                var errorText;
+                
+                if (lastname == '') {
+                    errorText = 'Не заполнили фамилию <br />';
+                    flag = true;
+                }
+
+                if (firstname == '') {
+                    errorText += 'Не заполнили имя <br />';                
+                    flag = true;
+                }
+
+                if (patronymic == '') {
+                    errorText += 'Не заполнили отчество <br />';
+                    flag = true;
+                }               
+
+                if (!flag) {
+                    newrow= table.insertRow(0);
+                    newcell=newrow.insertCell(0); 
+                    newcell.innerHTML=lastname+' '+firstname+' '+patronymic; 
+                    document.getElementById("lastname").value = '';
+                    document.getElementById("firstname").value = '';
+                    document.getElementById("patronymic").value = ''; 
+                    error.innerHTML = '';                    
+                    error.style.display = 'none';
+                    document.getElementById("add_item").style.display = 'inline-block';
+                    document.getElementById("newPerson").style.display = 'none';                
+                    
+                } else {
+                    error.style.display = 'block';
+                    error.innerHTML = errorText;
+                }
+            }
+            
+           
+        </script>    
+        
+    </body>
+</html>
