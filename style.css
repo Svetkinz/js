@@ -1,0 +1,40 @@
+body, ul {
+    font-size: 16px;
+    color: #333;
+}
+    
+a {
+    text-decoration: none;
+    border-bottom: 1px solid;
+}     
+    
+ul li {
+    margin: 0 0 10px;
+}
+    
+.b-wrapper {
+    width: 960px;
+    margin: 0 auto;
+    padding: 30px 0;
+}
+    
+table {
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    margin: 20px 0;
+}
+    
+table td{
+    border-right: 1px solid #ccc;
+    border-bottom: 1px solid #ccc;
+    padding: 8px;
+}
+    
+#newPerson {
+    display: none;
+}
+    
+#error {
+    display: none;
+    color: #ff0000;
+}
